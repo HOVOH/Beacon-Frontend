@@ -18,7 +18,7 @@ const AuthenticationContext = createContext({
 })
 
 export function AuthenticationProvider(props:React.PropsWithChildren<PropsWithClassName>){
-  const [user, setUser] = useState<IUser>(null);
+  const [user, setUser] = useState<IUser|null>(null);
   const {active, activate, library, account} = useWeb3React()
   const [tried, setTried] = useState(false);
   const [refreshFailed, setRefreshFailed] = useState(false);
@@ -68,20 +68,22 @@ export function AuthenticationProvider(props:React.PropsWithChildren<PropsWithCl
 
   const web3Login = async () => {
     try{
-      const message = await getLoginVerificationCode(account);
-      const signature = await library.getSigner(account).signMessage(message);
-      const session = await loginWithSignature(account, signature);
-      const user = await whoami();
-      setUser(user);
-      setRefreshFailed(false);
-      return true;
+      if (account){
+        const message = await getLoginVerificationCode(account);
+        const signature = await library.getSigner(account).signMessage(message);
+        const session = await loginWithSignature(account, signature);
+        const user = await whoami();
+        setUser(user);
+        setRefreshFailed(false);
+        return true;
+      }
     } catch (ignored){}
     return false;
   }
 
   const isAuthenticated = () => !!user;
 
-  const login = async (identifier, password) => {
+  const login = async (identifier: string, password: string) => {
     return false;
   }
 
@@ -97,6 +99,7 @@ export function AuthenticationProvider(props:React.PropsWithChildren<PropsWithCl
     return false;
   }
 
+  // @ts-ignore
   const updateUser = (update: Partial<IUser>)=> setUser({...user,...update})
 
   return (

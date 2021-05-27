@@ -18,7 +18,12 @@ const topics = [
   "defi",
   "oracles",
   "yield",
-]
+] as const;
+type Topics = typeof topics[number];
+
+type TopicsForm = {
+  [key in Topics]: boolean;
+};
 
 const useStyle = makeStyles(theme => ({
   wrapper:{
@@ -52,7 +57,7 @@ export default function CurateTweet(){
 }),
     { keepPreviousData: true, staleTime: 60000}
   )
-  const tweet = isFetching? null: data.results[0];
+  const tweet = data? data.results[0]: null;
 
   React.useEffect(() => {
     if (data) {
@@ -73,12 +78,16 @@ export default function CurateTweet(){
   }
 
   const nextTweet = () => {
-    setKeyset(data.page.lastToken);
-    reset(topics.reduce((obj, val)=>({...obj, [val]:false}), {}))
+    if (data){
+      setKeyset(data.page.lastToken);
+      reset(topics.reduce((obj, val)=>({...obj, [val]:false}), {}))
+    }
   }
 
-  const submitTopics = handleSubmit((data)=> {
-    addTopics(tweet.tweetId, topics.filter(topic=> !!data[topic]));
+  const submitTopics = handleSubmit((data: TopicsForm)=> {
+    if (tweet){
+      addTopics(tweet.tweetId, topics.filter(topic=> data[topic]));
+    }
   })
 
   return (
@@ -90,10 +99,11 @@ export default function CurateTweet(){
         <Box className={classes.wrapper} display={"flex"} justifyContent={"center"} alignItems={"center"}>
           <Box>
             <Typography variant={"h4"}>The tweet</Typography>
-            {isFetching ?
+            {tweet ?
+              (<Tweet tweet={tweet} className={classes.tweets}/>)
+                :
               (<Skeleton width={450} variant={"rect"}/>)
-              :
-              (<Tweet tweet={tweet} className={classes.tweets}/>)}
+            }
           </Box>
           <Box p={2}>
             <Box>
@@ -109,9 +119,14 @@ export default function CurateTweet(){
                 ))}
               </Box>
               <Box display={"flex"}>
-                <Button variant={"contained"} color={"secondary"} onClick={submit}>Submit</Button>
+                <Button
+                  variant={"contained"}
+                  color={"secondary"}
+                  onClick={submit}
+                  disabled={isFetching}
+                >Submit</Button>
                 <Box ml={1}></Box>
-                <Button variant={"outlined"} color={"primary"} onClick={nextTweet}>Skip</Button>
+                <Button variant={"outlined"} color={"primary"} onClick={nextTweet} disabled={isFetching}>Skip</Button>
               </Box>
             </Box>
           </Box>

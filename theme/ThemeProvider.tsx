@@ -4,7 +4,7 @@ import { CssBaseline, ThemeProvider } from '@material-ui/core';
 
 const ThemeContext = React.createContext({});
 
-export default function BeaconThemeProvider(props) {
+export default function BeaconThemeProvider(props: any) {
   let currentTheme = "dark" as AvailableThemes
 
   const [palette, setPalette] = useState<AvailableThemes>( currentTheme? currentTheme:"light");

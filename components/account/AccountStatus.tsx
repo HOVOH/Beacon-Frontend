@@ -19,7 +19,7 @@ const useStyle = makeStyles((theme) => ({
   }
 }))
 
-export function AccountStatus(props) {
+export function AccountStatus(props: any) {
 
   const classes = useStyle();
   const {active, account, activate, library} = useWeb3React();
@@ -27,7 +27,7 @@ export function AccountStatus(props) {
 
   if (isAuthenticated()){
     return (
-      <Button variant={"contained"} className={classes.fullyConnected}>{user.username??user.ethereumAddress}</Button>
+      <Button variant={"contained"} className={classes.fullyConnected}>{user?.username??user?.ethereumAddress}</Button>
     )
   } else if (active){
     return <Button

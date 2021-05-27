@@ -70,8 +70,8 @@ export default function UserPage(props: any){
       <Box>
         <Box className={classes.header}>
           <Box>
-            <Title>{user.name}</Title>
-            <Subtitle>@{user.username}</Subtitle>
+            <Title>{user?.name}</Title>
+            <Subtitle>@{user?.username}</Subtitle>
           </Box>
           <Box>
             {isImported()?(
@@ -89,16 +89,16 @@ export default function UserPage(props: any){
           </Box>
         </Box>
         <Box display={"flex"} mt={2}>
-          {user.description && (
+          {user?.description && (
             <Box flex={"1 1 auto"}>
               {user.description}
             </Box>
           )}
           <Box className={classes.metrics} flex={"0 0 auto"}>
-            <Typography>Followers: {user.publicMetrics.followerCount}</Typography>
-            <Typography>Following: {user.publicMetrics.followingCount}</Typography>
-            <Typography>Tweet count: {user.publicMetrics.tweetCount}</Typography>
-            <Typography>Listed count: {user.publicMetrics.listedCount}</Typography>
+            <Typography>Followers: {user?.publicMetrics.followerCount}</Typography>
+            <Typography>Following: {user?.publicMetrics.followingCount}</Typography>
+            <Typography>Tweet count: {user?.publicMetrics.tweetCount}</Typography>
+            <Typography>Listed count: {user?.publicMetrics.listedCount}</Typography>
           </Box>
         </Box>
       </Box>

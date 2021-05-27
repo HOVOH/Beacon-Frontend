@@ -19,7 +19,7 @@ const useStyle = makeStyles(theme => ({
   }
 }))
 
-export default function UsersIndex(props) {
+export default function UsersIndex(props: any) {
 
   const classes = useStyle();
   const {control, handleSubmit} = useForm();

@@ -13,7 +13,7 @@ export interface ITweet {
   tweetId: string,
   authorId: string,
   text: string,
-  createdAt: Date,
+  createdAt: string,
   conversationId: string,
   foundAt: string,
   updatedAt: string,
@@ -35,7 +35,7 @@ export interface ITweet {
 export async function getTweets(filter: ITweetsFilter): Promise<KeysetPage<ITweet[]>>{
   const params = {
     ...filter,
-    tags: filter.tags.join(",")
+    tags: filter.tags?.join(",")
   }
   const response = await client.get("v1/twitter/tweets",{params});
   return response.data

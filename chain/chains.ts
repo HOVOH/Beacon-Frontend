@@ -4,7 +4,7 @@ export interface Chain {
   ticker: string
 }
 
-export const chains = [
+export const chains: Chain[] = [
   {
     id: 1,
     name: "Ethereum",
@@ -27,6 +27,6 @@ export const chains = [
   }
 ]
 
-export function getChain(id: number): Chain{
+export function getChain(id: number): Chain|undefined{
   return chains.find(chain => chain.id === id);
 }

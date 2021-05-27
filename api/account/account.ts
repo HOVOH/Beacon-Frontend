@@ -5,7 +5,7 @@ export const whoami = async () => {
   return response.data;
 }
 
-export const updateAccount = async (update) => {
+export const updateAccount = async (update: any) => {
   const response = await client.post("v1/account", update);
   return response.data;
 }

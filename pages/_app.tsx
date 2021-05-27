@@ -6,10 +6,11 @@ import React from "react";
 import { BeaconWeb3Provider } from "../components/providers/BeaconWeb3Provider";
 import { AuthenticationProvider } from "../components/providers/AuthenticationProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { AppProps } from "next/app";
 
 const queryClient = new QueryClient();
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <BeaconWeb3Provider>

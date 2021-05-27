@@ -1,6 +1,6 @@
-import { BeaconTheme, mergeBaseTheme } from "./common";
+import { BeaconThemeOptions, mergeBaseTheme } from "./common";
 
-export const darkTheme: BeaconTheme = mergeBaseTheme({
+export const darkTheme: BeaconThemeOptions = mergeBaseTheme({
   palette: {
     type: "dark",
     background: {

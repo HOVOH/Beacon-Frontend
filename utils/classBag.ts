@@ -1,4 +1,4 @@
-export const classBag = (...classes: string[]) => {
+export const classBag = (...classes: (string|undefined|null)[]) => {
   return classes.filter(clazz => !!clazz).join(" ");
 }
 
