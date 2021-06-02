@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const client = axios.create({
-  baseURL:"http://localhost:8000/api/",
+  baseURL: process.env.NEXT_PUBLIC_BEACON_API_URL,
   withCredentials: true,
 })
