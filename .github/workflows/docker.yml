@@ -26,6 +26,6 @@ jobs:
         with:
           tags: "ghcr.io/hovoh/beacon-frontend:latest"
           push: true
-          build-args:
-            - "BEACON_API_URL=http://beacon.hovoh.me/api"
+          build-args: |
+            BEACON_API_URL=http://beacon.hovoh.me/api
 
