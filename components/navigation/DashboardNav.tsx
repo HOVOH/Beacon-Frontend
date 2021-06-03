@@ -16,15 +16,23 @@ export function DashboardNav(props: IDashboardNavProps){
           {
             href: "/twitter/tweets/curate",
             name: "Tweet curation",
+            needsAuth: true
           },
           {
             href: "/twitter/users",
-            name: "Twitter user"
+            name: "Twitter user",
+            needsAuth: true
           },
           {
             href: "/account",
             name: "Account",
+            needsAuth: true,
           },
+          {
+            href: "/login",
+            name: "Login",
+            needsAuth: false
+          }
         ]
       }/>
     </Box>

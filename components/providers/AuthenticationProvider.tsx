@@ -6,6 +6,7 @@ import { PropsWithClassName } from "../../utils/classBag";
 import { getLoginVerificationCode, loginWithSignature } from "../../api/authentication/web3login";
 import { refreshSession } from "../../api/authentication/refresh-session";
 import { whoami } from "../../api/account/account";
+import { logout as serverLogout } from "../../api/authentication/logout"
 
 const AuthenticationContext = createContext({
   user: null as IUser|null,
@@ -88,7 +89,10 @@ export function AuthenticationProvider(props:React.PropsWithChildren<PropsWithCl
   }
 
   const logout = async () => {
-    return false;
+    serverLogout().then(() => {
+      setUser(null);
+    })
+    return true;
   }
 
   const refresh = async () => {

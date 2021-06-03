@@ -102,7 +102,7 @@ export default function CurateTweet(){
             {tweet ?
               (<Tweet tweet={tweet} className={classes.tweets}/>)
                 :
-              (<Skeleton width={450} variant={"rect"}/>)
+               isFetching ? (<Skeleton width={450} variant={"rect"} />) : ("No tweets to curate")
             }
           </Box>
           <Box p={2}>

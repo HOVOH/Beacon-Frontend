@@ -35,7 +35,8 @@ const useStyle = makeStyles((theme: Theme) => ({
     alignItems: "stretch",
     "& > *": {
       flexGrow: 1
-    }
+    },
+    paddingLeft: theme.spacing(2)
   }
 }))
 

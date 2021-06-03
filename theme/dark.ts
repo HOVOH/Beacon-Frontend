@@ -20,6 +20,6 @@ export const darkTheme: BeaconThemeOptions = mergeBaseTheme({
     }
   },
   gradients: {
-    primary: "linear-gradient(45deg, #F0905F, #C53E85)",
+    primary: "linear-gradient(45deg, #C53E85, #F0905F)",
   },
 })

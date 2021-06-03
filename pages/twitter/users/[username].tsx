@@ -7,7 +7,6 @@ import { Title } from "../../../components/Title";
 import { Subtitle } from "../../../components/Subtitle";
 import { BeaconTheme } from "../../../theme/common";
 import { NotFound } from "../../../components/navigation/NotFound";
-import { getTweets } from "../../../api/twitter/tweets.api";
 
 const useStyle = makeStyles((theme: BeaconTheme) => ({
   wrapper: {

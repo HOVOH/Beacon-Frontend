@@ -3,6 +3,7 @@ import { Box, makeStyles, Theme } from "@material-ui/core";
 import { ILink, Link } from "./Link";
 import { classBag } from "../../utils/classBag";
 import { useRouter } from 'next/router'
+import { useCredentials } from "../providers/AuthenticationProvider";
 
 export interface IDashboardNavProps {
   links: ILink[]
@@ -30,11 +31,19 @@ const useStyle = makeStyles((theme: Theme) => ({
 }))
 
 export function VerticalNav(props: IDashboardNavProps){
+
   const router = useRouter()
   const classes = useStyle();
+  const {isAuthenticated} = useCredentials();
+
   return (
     <Box>
-      {props.links.map(link => {
+      {props.links.filter(link => {
+        if (link.needsAuth){
+          return isAuthenticated();
+        }
+        else return !(link.needsAuth === false && isAuthenticated());
+      }).map(link => {
         return (
           <Link
             key={link.name}

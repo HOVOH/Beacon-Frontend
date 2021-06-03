@@ -4,6 +4,9 @@ import { TextField } from "../components/inputs/TextField";
 import { useForm } from "react-hook-form";
 import { updateAccount } from "../api/account/account";
 import { useState } from "react";
+import { Title } from "../components/Title";
+import Cookies from 'cookies'
+import { GetServerSidePropsContext, NextPage } from "next";
 
 const useStyle = makeStyles((theme) => ({
   wrapper: {
@@ -31,7 +34,6 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 export default function Account(props: any){
-
   const classes = useStyle();
   const {user, updateUser} = useCredentials();
   const {control, handleSubmit} = useForm();
@@ -46,7 +48,9 @@ export default function Account(props: any){
   })
 
   if(!user){
-    return (<span>Not connected</span>)
+    return (
+      <Title>Not connected</Title>
+    )
   }
 
   return (
@@ -71,5 +75,18 @@ export default function Account(props: any){
       </Box>
     </Box>
   )
+}
 
+export async function getServerSideProps({req, res}: GetServerSidePropsContext) {
+  const cookies = new Cookies(req, res)
+  const jwt = cookies.get('hovoh_access');
+  if (!jwt) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login"
+      }
+    }
+  }
+  return { props: {}}
 }

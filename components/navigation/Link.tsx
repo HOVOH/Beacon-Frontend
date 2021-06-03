@@ -6,6 +6,7 @@ import { classBag } from "../../utils/classBag";
 export interface ILink {
   href: string,
   name: string,
+  needsAuth?: boolean
 }
 
 interface ILinkProps {
