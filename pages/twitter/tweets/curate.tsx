@@ -10,7 +10,7 @@ import { Title } from "../../../components/Title";
 
 const topics = [
   "crypto",
-  "startup",
+  "early stage",
   "presale",
   "lending",
   "dex",
