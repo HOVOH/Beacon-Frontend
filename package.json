@@ -26,6 +26,7 @@
     "react-query": "^3.16.0"
   },
   "devDependencies": {
+    "@types/cookies": "^0.7.6",
     "@types/luxon": "^1.26.5",
     "@types/react": "^17.0.5",
     "cross-env": "^7.0.3",
