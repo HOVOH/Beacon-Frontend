@@ -14,7 +14,7 @@ const topics = [
   "presale",
   "lending",
   "dex",
-  "launchpad",
+  "NFT",
   "defi",
   "oracles",
   "yield",
