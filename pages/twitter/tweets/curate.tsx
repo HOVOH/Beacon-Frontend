@@ -52,6 +52,8 @@ export default function CurateTweet(){
     ['tweet', keyset],
     () => getTweets({
       size: 1,
+      order: "DES",
+      orderBy: "createdAt",
       tags: ["imported"],
       noTopicsLabelled: true
 }),
@@ -66,6 +68,8 @@ export default function CurateTweet(){
           size: 1,
           tags: ["imported"],
           keyset: data.page.lastToken,
+          order: "DES",
+          orderBy: "createdAt",
           noTopicsLabelled: true
     })
       )

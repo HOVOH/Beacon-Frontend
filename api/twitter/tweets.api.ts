@@ -7,6 +7,8 @@ export interface ITweetsFilter {
   ids?: string[],
   noTopicsLabelled?: boolean,
   keyset?: string,
+  order: "ASC"|"DES",
+  orderBy: "createdAt"
 }
 
 export interface ITweet {
@@ -32,10 +34,10 @@ export interface ITweet {
   }
 }
 
-export async function getTweets(filter: ITweetsFilter): Promise<KeysetPage<ITweet[]>>{
+export async function getTweets({ tags, ...filter }: ITweetsFilter): Promise<KeysetPage<ITweet[]>>{
   const params = {
     ...filter,
-    tags: filter.tags?.join(",")
+    tags: tags?.join(",")
   }
   const response = await client.get("v1/twitter/tweets",{params});
   return response.data
