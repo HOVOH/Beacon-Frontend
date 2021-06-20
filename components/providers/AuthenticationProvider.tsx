@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { IUser } from "../../models/user.model";
+import { IUser } from "../../api/account/IUser";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../../chain/connectors";
 import { PropsWithClassName } from "../../utils/classBag";

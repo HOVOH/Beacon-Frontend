@@ -1,5 +1,5 @@
 import { client } from "../httpClient";
-import { ITwitterUser } from "../../models/twitter-user.model";
+import { ITwitterUser } from "./twitter-user.model";
 
 export const getTwitterUsers = async (usernames: string[]): Promise<ITwitterUser[]> => {
   const response = await client.get(`v1/twitter/users`, {params: { usernames: usernames.join(",")}});

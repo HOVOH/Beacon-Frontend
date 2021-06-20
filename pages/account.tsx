@@ -4,7 +4,7 @@ import { TextField } from "../components/inputs/TextField";
 import { useForm } from "react-hook-form";
 import { updateAccount } from "../api/account/account";
 import { useState } from "react";
-import { Title } from "../components/Title";
+import { Title } from "../components/typography/Title";
 import Cookies from 'cookies'
 import { GetServerSidePropsContext, NextPage } from "next";
 

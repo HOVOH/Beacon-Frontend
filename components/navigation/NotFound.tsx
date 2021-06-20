@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, makeStyles, Typography } from "@material-ui/core";
-import { Title } from "../Title";
+import { Title } from "../typography/Title";
 import { useRouter } from "next/router";
 
 

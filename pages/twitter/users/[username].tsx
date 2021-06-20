@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getTwitterUsers, importTwitterUsers } from "../../../api/twitter/twitter-user.api";
+import { getTwitterUsers, importTwitterUsers } from "../../../api/twitter/ITwitterUser";
 import { Box, Button, CircularProgress, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
-import { Title } from "../../../components/Title";
-import { Subtitle } from "../../../components/Subtitle";
+import { Title } from "../../../components/typography/Title";
+import { Subtitle } from "../../../components/typography/Subtitle";
 import { BeaconTheme } from "../../../theme/common";
 import { NotFound } from "../../../components/navigation/NotFound";
 

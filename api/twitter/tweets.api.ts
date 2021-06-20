@@ -1,5 +1,6 @@
 import { client } from "../httpClient";
 import { KeysetPage } from "../Pagination";
+import { ITweet } from "./ITweet";
 
 export interface ITweetsFilter {
   tags?: string[],
@@ -9,29 +10,6 @@ export interface ITweetsFilter {
   keyset?: string,
   order: "ASC"|"DES",
   orderBy: "createdAt"
-}
-
-export interface ITweet {
-  tweetId: string,
-  authorId: string,
-  text: string,
-  createdAt: string,
-  conversationId: string,
-  foundAt: string,
-  updatedAt: string,
-  meta: {
-    lang: {
-      reliable: boolean,
-      textBytes: 273,
-      languages: {
-        name:string,
-        code: string,
-        percent: number
-      }[]
-    },
-    tags: string[],
-    topics: string[]
-  }
 }
 
 export async function getTweets({ tags, ...filter }: ITweetsFilter): Promise<KeysetPage<ITweet[]>>{

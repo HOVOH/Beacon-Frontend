@@ -6,7 +6,7 @@ import { addTopics, getTweets } from "../../../api/twitter/tweets.api";
 import { Checkbox } from "../../../components/inputs/Checkbox";
 import { useForm } from "react-hook-form";
 import { Skeleton } from "@material-ui/lab";
-import { Title } from "../../../components/Title";
+import { Title } from "../../../components/typography/Title";
 
 const topics = [
   "crypto",

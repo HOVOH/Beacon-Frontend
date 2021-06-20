@@ -4,4 +4,5 @@ export const classBag = (...classes: (string|undefined|null)[]) => {
 
 export interface PropsWithClassName{
   className?: string,
+  style?: any
 }

@@ -14,13 +14,18 @@ export function DashboardNav(props: IDashboardNavProps){
             name: "Home"
           },
           {
+            href: "/feed",
+            name: "Feed",
+            needsAuth: true
+          },
+          {
             href: "/twitter/tweets/curate",
-            name: "Tweet curation",
+            name: "Tweet Labelling",
             needsAuth: true
           },
           {
             href: "/twitter/users",
-            name: "Twitter user",
+            name: "Twitter User",
             needsAuth: true
           },
           {

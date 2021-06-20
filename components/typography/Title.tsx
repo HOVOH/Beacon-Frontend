@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { PropsWithClassName } from "../utils/classBag";
+import { PropsWithClassName } from "../../utils/classBag";
 import { Typography } from "@material-ui/core";
 
 export interface TitleProps extends PropsWithChildren<PropsWithClassName> {

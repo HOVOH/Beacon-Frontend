@@ -3,7 +3,7 @@ import { Box, Button, Card, CardActions, CardContent, Typography } from "@materi
 import { TextField } from "../components/inputs/TextField";
 import { useForm } from "react-hook-form";
 import { useWeb3React } from "@web3-react/core";
-import { Title } from "../components/Title";
+import { Title } from "../components/typography/Title";
 import { useCredentials } from "../components/providers/AuthenticationProvider";
 import { injected } from "../chain/connectors";
 

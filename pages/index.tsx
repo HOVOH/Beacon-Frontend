@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import React from "react";
 import { Box, makeStyles, Typography } from "@material-ui/core";
-import { Title } from "../components/Title";
-import { Subtitle } from "../components/Subtitle";
+import { Title } from "../components/typography/Title";
+import { Subtitle } from "../components/typography/Subtitle";
 import { BeaconTheme } from "../theme/common";
 import { useCredentials } from "../components/providers/AuthenticationProvider";
 

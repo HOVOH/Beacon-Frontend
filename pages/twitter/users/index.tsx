@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, makeStyles } from "@material-ui/core";
-import { Title } from "../../../components/Title";
+import { Title } from "../../../components/typography/Title";
 import { useForm } from "react-hook-form";
 import { TextField } from "../../../components/inputs/TextField";
 import { useRouter } from "next/router";

@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, CssBaseline, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import BeaconThemeProvider from "../theme/ThemeProvider";
-import { BeaconWeb3Provider } from "../components/providers/BeaconWeb3Provider";
-import { injected } from "../chain/connectors";
-import { useWeb3React } from "@web3-react/core";
 
 const useStyle = makeStyles((theme: Theme) => ({
   wrapper: {
@@ -36,7 +33,8 @@ const useStyle = makeStyles((theme: Theme) => ({
     "& > *": {
       flexGrow: 1
     },
-    paddingLeft: theme.spacing(2)
+    paddingLeft: theme.spacing(2),
+    overflowY: "hidden"
   }
 }))
 
@@ -54,7 +52,7 @@ export function Dashboard(props: IDashboardProps){
       <Box display={"flex"} p={2} className={classes.wrapper}>
         <CssBaseline />
         <Box className={classes.logo}>
-          <Typography variant={"h5"}>Beacon</Typography>
+          <Typography variant={"h5"} align={"center"}>Beacon</Typography>
         </Box>
         {props.navigation && (
           <Box flexGrow={0} pr={2} pt={2} className={classes.navigation}>
