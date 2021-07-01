@@ -15,9 +15,9 @@ export interface ITweet {
         code: string,
         percent: number
       }[],
-      topicsScore: {[s in string]: number},
-      references: {id:string, type: "retweeted"|"quoted"|"replied_to"}[]
     },
+    topicsScore: {[s in string]: number},
+    references: {id:string, type: "retweeted"|"quoted"|"replied_to"}[]
     tags: string[],
     topics: string[]
   }

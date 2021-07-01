@@ -1,6 +1,6 @@
 import { classBag, PropsWithClassName } from "../../utils/classBag";
 import { IFeedItem } from "../../api/feed";
-import { ITweet } from "../../api/twitter/tweets.api";
+import { ITweet } from "../../api/twitter/ITweet";
 import { ITwitterUser } from "../../api/twitter/twitter-user.model";
 import React from "react";
 import { Tweet } from "../twitter/Tweet";
