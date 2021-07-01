@@ -1,7 +1,7 @@
 import {Card} from '../Card';
 import { Box, CardContent, CardHeader, makeStyles, Typography } from "@material-ui/core";
 import { classBag, PropsWithClassName } from "../../utils/classBag";
-import { ITweet } from "../../api/twitter/tweets.api";
+import { ITweet } from "../../api/twitter/ITweet";
 import React from "react";
 import {DateTime} from 'luxon';
 import { useQuery } from "react-query";
