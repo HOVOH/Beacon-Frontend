@@ -3,7 +3,7 @@ import React from "react";
 import { classBag, PropsWithClassName } from "../../utils/classBag";
 import { IFeedItem } from "../../api/feed";
 import { ITweet } from "../../api/twitter/ITweet";
-import { ITwitterUser } from "../../api/twitter/twitter-user.model";
+import { ITwitterUser } from "../../api/twitter/ITwitterUser";
 import { Tweet } from "../twitter/Tweet";
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import { BeaconTheme } from "../../theme/common";

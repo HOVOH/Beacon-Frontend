@@ -2,6 +2,7 @@ import React from "react";
 import { Box, CssBaseline, Theme, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import BeaconThemeProvider from "../theme/ThemeProvider";
+import SnackBar from "../components/providers/Snackbar";
 
 const useStyle = makeStyles((theme: Theme) => ({
   wrapper: {

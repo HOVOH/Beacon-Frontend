@@ -7,6 +7,7 @@ import { getLoginVerificationCode, loginWithSignature } from "../../api/authenti
 import { refreshSession } from "../../api/authentication/refresh-session";
 import { whoami } from "../../api/account/account";
 import { logout as serverLogout } from "../../api/authentication/logout"
+import { useAlert } from "./Snackbar";
 
 const AuthenticationContext = createContext({
   user: null as IUser|null,
@@ -23,6 +24,7 @@ export function AuthenticationProvider(props:React.PropsWithChildren<PropsWithCl
   const {active, activate, library, account} = useWeb3React()
   const [tried, setTried] = useState(false);
   const [refreshFailed, setRefreshFailed] = useState(false);
+  const {alertError} = useAlert();
 
   useEffect(() => {
     injected.isAuthorized().then((isAuthorized: boolean) => {
@@ -78,7 +80,20 @@ export function AuthenticationProvider(props:React.PropsWithChildren<PropsWithCl
         setRefreshFailed(false);
         return true;
       }
-    } catch (ignored){}
+    } catch (error){
+      const response = error.response;
+      console.log(response);
+      if (response){
+        if (response.status === 502) {
+          alertError("Logins are currently disabled");
+        } if (response.status === 403){
+          alertError("Your address is not whitelisted");
+        }
+      } else{
+        alertError("An unexpected error occured and we were unable to sign you in");
+      }
+    }
+
     return false;
   }
 

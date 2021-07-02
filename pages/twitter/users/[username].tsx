@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getTwitterUsers, importTwitterUsers } from "../../../api/twitter/ITwitterUser";
+import { getTwitterUsers, importTwitterUsers } from "../../../api/twitter/twitter-user.api";
 import { Box, Button, CircularProgress, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import { Title } from "../../../components/typography/Title";
 import { Subtitle } from "../../../components/typography/Subtitle";
 import { BeaconTheme } from "../../../theme/common";
-import { NotFound } from "../../../components/navigation/NotFound";
+import { NotFound } from "../../../components/errors/NotFound";
+import { ErrorBox } from "../../../components/errors/ErrorBox";
 
 const useStyle = makeStyles((theme: BeaconTheme) => ({
   wrapper: {
@@ -61,7 +62,7 @@ export default function UserPage(props: any){
 
   if (isError){
     console.log(error);
-    return (<NotFound title={"User not found"}/>)
+    return (<ErrorBox resource={"user"} error={error}/>)
   }
 
   return (

@@ -5,8 +5,8 @@ import { ITweet } from "../../api/twitter/ITweet";
 import React from "react";
 import {DateTime} from 'luxon';
 import { useQuery } from "react-query";
-import { getTwitterUser } from "../../api/twitter/ITwitterUser";
-import { ITwitterUser } from "../../api/twitter/twitter-user.model";
+import { getTwitterUser } from "../../api/twitter/twitter-user.api";
+import { ITwitterUser } from "../../api/twitter/ITwitterUser";
 import { Muted } from "../typography/Muted";
 
 const useStyle = makeStyles((theme)=> ({

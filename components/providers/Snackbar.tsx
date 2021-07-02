@@ -67,17 +67,17 @@ export default function SnackBar(props: any) {
 
   return (
     <SnackbarContext.Provider value={{
-    alertError,
+      alertError,
       alertWarning,
       alertInfo,
       alertSuccess,
-  }}>
-  {props.children}
-  <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-  <Alert onClose={handleClose} severity={severity}>
-    {message}
-    </Alert>
-    </Snackbar>
+    }}>
+      {props.children}
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={severity}>
+          {message}
+        </Alert>
+      </Snackbar>
     </SnackbarContext.Provider>
 );
 }

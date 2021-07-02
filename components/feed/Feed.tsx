@@ -8,6 +8,7 @@ import InfiniteLoader from "react-window-infinite-loader";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { IKeysetPageRequest } from "../../api/IKeysetPageRequest";
 import { Skeleton } from "@material-ui/lab";
+import { ErrorBox } from "../errors/ErrorBox";
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -29,6 +30,7 @@ export default function Feed(props: PropsWithClassName){
   const [feedItems, setItems] = useState<IFeedItem<any>[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(true);
+  const [error, setError] = useState<any>(null);
 
   const isItemLoaded = (index: number) => feedItems.length > index
 
@@ -43,9 +45,13 @@ export default function Feed(props: PropsWithClassName){
     if (feedItems.length > 0) {
       page.keyset = feedItems[feedItems.length-1].id
     }
-    const response = await getFeed(page);
+    try {
+      const response = await getFeed(page);
+      setItems([...feedItems, ...response.results]);
+    } catch (error){
+      setError(error);
+    }
     setIsLoading(false);
-    setItems([...feedItems, ...response.results]);
   }
 
   const Item = (props: {index: number, style: any}) => {
@@ -60,6 +66,10 @@ export default function Feed(props: PropsWithClassName){
     }
     return (<FeedItem event={feedItems[index]} style={style}/>);
 
+  }
+
+  if (error){
+    return (<ErrorBox error={error} resource={"feed"}/>)
   }
 
   return (

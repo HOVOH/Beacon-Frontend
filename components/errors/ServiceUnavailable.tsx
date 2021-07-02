@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, Button, makeStyles, Typography } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
 import { Title } from "../typography/Title";
-import { useRouter } from "next/router";
+import { Subtitle } from "../typography/Subtitle";
 
 
 const useStyle = makeStyles(theme => ({
@@ -14,18 +14,17 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-export interface NotFoundProps {
+export interface ServiceUnavailableProps {
   title?: string
 }
 
-export function NotFound(props: any){
+export function ServiceUnavailable(props: ServiceUnavailableProps){
   const classes = useStyle();
-  const router = useRouter()
 
   return (
     <Box className={classes.wrapper}>
-      <Title>{props.title??"Not found"}</Title>
-      <Button onClick={()=> router.back()} variant={"contained"} color={"primary"}>Back</Button>
+      <Title>{props.title??"Service currently unavailable"}</Title>
+      <Subtitle>Try again later</Subtitle>
     </Box>
   )
 }
