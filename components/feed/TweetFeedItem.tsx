@@ -48,7 +48,7 @@ export function TweetFeedItem(props: ITweetFeedItemProps){
       </Box>
       <Tweet tweet={tweet} author={author}/>
       <Box mx={1} my={1} display={"flex"}>
-          {Object.keys(tweet.meta.topicsScore).map(key => (
+          {tweet.meta.topicsScore && Object.keys(tweet.meta.topicsScore).map(key => (
             <Box className={classes.topic}>
               <Typography variant={"body2"} display={"inline"}
                           className={classes.topicKey}>
