@@ -1,9 +1,7 @@
 import { IFeedItem } from "../../api/feed";
-import { Tweet } from "../twitter/Tweet";
 import React from "react";
 import { classBag, PropsWithClassName } from "../../utils/classBag";
 import { makeStyles, Typography } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
 import { TweetFeedItem } from "./TweetFeedItem";
 
 const useStyle = makeStyles(theme => ({
@@ -13,7 +11,8 @@ const useStyle = makeStyles(theme => ({
 }))
 
 export interface IFeedItemProps extends PropsWithClassName{
-  event: IFeedItem<any>
+  event: IFeedItem<any>,
+  ref?: any,
 }
 
 export function FeedItem(props:IFeedItemProps) {

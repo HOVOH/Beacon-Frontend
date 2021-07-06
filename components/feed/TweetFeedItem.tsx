@@ -33,11 +33,12 @@ const useStyle = makeStyles((theme: BeaconTheme) => ({
 }))
 
 export interface ITweetFeedItemProps extends PropsWithClassName {
-  event: IFeedItem<{ tweet: ITweet, author: ITwitterUser }>
+  event: IFeedItem<{ tweet: ITweet, author: ITwitterUser }>,
+  ref?: any,
 }
 
 export function TweetFeedItem(props: ITweetFeedItemProps){
-  const {event} = props;
+  const {event, ref} = props;
   const {tweet, author} = event.data;
   const classes = useStyle();
 
@@ -49,7 +50,7 @@ export function TweetFeedItem(props: ITweetFeedItemProps){
       <Tweet tweet={tweet} author={author}/>
       <Box mx={1} my={1} display={"flex"}>
           {tweet.meta.topicsScore && Object.keys(tweet.meta.topicsScore).map(key => (
-            <Box className={classes.topic}>
+            <Box className={classes.topic} key={key}>
               <Typography variant={"body2"} display={"inline"}
                           className={classes.topicKey}>
                 {key}

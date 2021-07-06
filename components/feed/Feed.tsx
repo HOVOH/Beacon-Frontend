@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import { getFeed, IFeedItem } from "../../api/feed";
 import { FeedItem } from "./FeedItem";
@@ -19,6 +19,9 @@ const useStyle = makeStyles(theme => ({
   feed: {
     flex: "1 1 auto",
     overflowY: "hidden"
+  },
+  feedItem: {
+    paddingTop: theme.spacing(1)
   }
 }))
 
@@ -28,13 +31,16 @@ export default function Feed(props: PropsWithClassName){
 
   const classes = useStyle();
   const [feedItems, setItems] = useState<IFeedItem<any>[]>([]);
+  const itemsHeights = useRef<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [error, setError] = useState<any>(null);
+  const listRef = useRef<any>(null);
+  let loaderRef = useRef<any>(null)
 
   const isItemLoaded = (index: number) => feedItems.length > index
 
-  const loadNextPage = async () => {
+  const loadNextPage = async (startIndex: number) => {
     if (isLoading) {
       return;
     }
@@ -45,32 +51,55 @@ export default function Feed(props: PropsWithClassName){
     if (feedItems.length > 0) {
       page.keyset = feedItems[feedItems.length-1].id
     }
-    try {
+    try{
       const response = await getFeed(page);
+      setIsLoading(false);
       setItems([...feedItems, ...response.results]);
-    } catch (error){
-      setError(error);
+    } catch (error) {
+      setError(error)
     }
-    setIsLoading(false);
   }
 
   const Item = (props: {index: number, style: any}) => {
     const index = props.index;
     const style = {
       ...props.style,
-      top: props.style.top+15,
-      height: props.style.height - 15
+      top: props.style.top,
+      height: props.style.height
     };
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (ref.current) {
+        listRef.current.resetAfterIndex && listRef.current.resetAfterIndex(0);
+        itemsHeights.current[index] = ref.current.clientHeight;
+      }
+    }, [ref]);
+
     if (!isItemLoaded(index)){
-      return (<Skeleton width={600} variant={"rect"} style={style}/>);
+      return (
+        <div style={style}>
+            <Skeleton width={600} variant={"rect"}/>
+        </div>
+      );
     }
-    return (<FeedItem event={feedItems[index]} style={style}/>);
+    return (
+      <div style={style}>
+        <div ref={ref} className={classes.feedItem}>
+          <FeedItem event={feedItems[index]}/>
+        </div>
+      </div>
+    );
 
   }
 
   if (error){
     return (<ErrorBox error={error} resource={"feed"}/>)
   }
+
+  useEffect(() => {
+    loaderRef.current.current = listRef.current;
+  }, [listRef])
 
   return (
     <Box className={classBag(classes.root, props.className)}>
@@ -80,23 +109,25 @@ export default function Feed(props: PropsWithClassName){
           itemCount={feedItems.length+1}
           loadMoreItems={loadNextPage}
         >
-          {({ onItemsRendered, ref }) => (
-            <AutoSizer>
-              {(dimensions) => (
-                <List
-                  className="List"
-                  height={dimensions.height}
-                  itemCount={feedItems.length+1}
-                  itemSize={() => 300}
-                  onItemsRendered={onItemsRendered}
-                  ref={ref}
-                  width={dimensions.width}
-                >
-                  {Item}
-                </List>
-              )}
-            </AutoSizer>
-            )}
+          {({ onItemsRendered, ref }) => {
+            loaderRef.current = ref;
+            return (
+              <AutoSizer>
+                {(dimensions) => (
+                  <List
+                    height={dimensions.height}
+                    itemCount={feedItems.length + 1}
+                    itemSize={(index) => itemsHeights.current[index] || 300}
+                    onItemsRendered={onItemsRendered}
+                    ref={listRef}
+                    width={dimensions.width}
+                  >
+                    {Item}
+                  </List>
+                )}
+              </AutoSizer>
+            );
+          }}
         </InfiniteLoader>
       </Box>
     </Box>
