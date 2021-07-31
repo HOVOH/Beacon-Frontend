@@ -71,7 +71,7 @@ export default function Feed(props: PropsWithClassName){
 
     useEffect(() => {
       if (ref.current) {
-        listRef.current.resetAfterIndex && listRef.current.resetAfterIndex(0);
+        listRef.current.resetAfterIndex && listRef.current.resetAfterIndex(index);
         itemsHeights.current[index] = ref.current.clientHeight;
       }
     }, [ref]);

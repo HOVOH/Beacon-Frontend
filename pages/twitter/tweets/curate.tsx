@@ -76,8 +76,8 @@ export default function CurateTweet(){
     }
   }, [keyset, data, queryClient])
 
-  const submit = () => {
-    submitTopics();
+  const submit = async () => {
+    await submitTopics();
     nextTweet();
   }
 
