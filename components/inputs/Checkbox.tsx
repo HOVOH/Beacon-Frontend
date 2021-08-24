@@ -4,7 +4,8 @@ import { Checkbox as MuiCheckbox, FormControlLabel } from "@material-ui/core";
 import React from "react";
 
 export interface CheckboxProps extends InputProps{
-  color?: "default" |"primary" |"secondary"
+  color?: "default" |"primary" |"secondary",
+  onClick?: (value:any) => any
 }
 
 export function Checkbox(props: CheckboxProps){
@@ -20,6 +21,7 @@ export function Checkbox(props: CheckboxProps){
               {...field}
               checked={field.value}
               color={props.color || "default"}
+              onClick={props.onClick}
             />
           }
           label={props.label}

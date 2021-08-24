@@ -17,6 +17,10 @@ const useStyle = makeStyles((theme: BeaconTheme) => ({
     flexDirection: "column",
     justifyContent: "space-between"
   },
+  wrapper: {
+    background: theme.palette.background.default,
+    borderRadius: theme.shape.borderRadius,
+  },
   topic: {
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.info.main,
@@ -44,11 +48,12 @@ export function TweetFeedItem(props: ITweetFeedItemProps){
 
   return (
     <Box className={classBag(classes.root, props.className)} style={props.style}>
-      <Box mx={2} my={1}>
-        <Typography variant={"h5"}>Twitter - {mapReferences(tweet)}</Typography>
-      </Box>
-      <Tweet tweet={tweet} author={author}/>
-      <Box mx={1} my={1} display={"flex"}>
+      <Box className={classes.wrapper}>
+        <Box mx={2} my={1}>
+          <Typography variant={"h5"}>Twitter - {mapReferences(tweet)}</Typography>
+        </Box>
+        <Tweet tweet={tweet} author={author}/>
+        <Box mx={1} my={1} display={"flex"}>
           {tweet.meta.topicsScore && Object.keys(tweet.meta.topicsScore).map(key => (
             <Box className={classes.topic} key={key}>
               <Typography variant={"body2"} display={"inline"}
@@ -61,6 +66,7 @@ export function TweetFeedItem(props: ITweetFeedItemProps){
               </Typography>
             </Box>
           ))}
+        </Box>
       </Box>
     </Box>
   )

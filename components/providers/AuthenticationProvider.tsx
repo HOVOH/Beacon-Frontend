@@ -104,9 +104,8 @@ export function AuthenticationProvider(props:React.PropsWithChildren<PropsWithCl
   }
 
   const logout = async () => {
-    serverLogout().then(() => {
-      setUser(null);
-    })
+    await serverLogout();
+    setUser(null);
     return true;
   }
 
@@ -114,7 +113,9 @@ export function AuthenticationProvider(props:React.PropsWithChildren<PropsWithCl
     try {
       const session = await refreshSession();
       return true;
-    } catch (ignored){}
+    } catch (ignored){
+      setUser(null);
+    }
     return false;
   }
 

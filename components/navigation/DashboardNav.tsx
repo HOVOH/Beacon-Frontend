@@ -19,7 +19,7 @@ export function DashboardNav(props: IDashboardNavProps){
             needsAuth: true
           },
           {
-            href: "/twitter/tweets/curate",
+            href: "/twitter/tweets/labelling",
             name: "Tweet Labelling",
             needsAuth: true
           },

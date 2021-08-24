@@ -3,6 +3,7 @@ import React from "react";
 import { classBag, PropsWithClassName } from "../../utils/classBag";
 import { makeStyles, Typography } from "@material-ui/core";
 import { TweetFeedItem } from "./TweetFeedItem";
+import { TwitterFollowingFeedItem } from "./TwitterFollowingFeedItem";
 
 const useStyle = makeStyles(theme => ({
   root: {
@@ -23,6 +24,10 @@ export function FeedItem(props:IFeedItemProps) {
     return (
       <TweetFeedItem event={event} className={classBag(classes.root, props.className)} style={style}/>
       )
+  } else if (event.type === "TWITTER_FOLLOWING_EVENT"){
+    return (
+      <TwitterFollowingFeedItem event={event} className={classBag(classes.root, props.className)} style={style}/>
+    );
   }
   return <Typography style={style}>Unsupported</Typography>;
 }

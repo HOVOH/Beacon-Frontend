@@ -25,3 +25,17 @@ export async function addTopics(tweetId: string, topics: string[]){
   const response = await client.put(`v1/twitter/tweets/${tweetId}/meta/topics`,{topics});
 
 }
+
+export interface IDeleteTweetsFilter {
+  authorTids?: string[],
+  includeTagged?: boolean,
+}
+
+export async function deleteTweets({authorTids, ...filter}: IDeleteTweetsFilter){
+  const params = {
+    authorTids: authorTids?.join(","),
+    ...filter
+  }
+  const response = await client.delete("v1/twitter/tweets", {params});
+  console.log(response);
+}

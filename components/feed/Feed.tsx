@@ -27,8 +27,15 @@ const useStyle = makeStyles(theme => ({
 
 const PAGE_SIZE = 10;
 
-export default function Feed(props: PropsWithClassName){
+export interface FeedSettings {
+  types: string[]
+}
 
+export interface IFeedProps extends PropsWithClassName{
+  settings?: FeedSettings
+}
+
+export default function Feed(props: IFeedProps){
   const classes = useStyle();
   const [feedItems, setItems] = useState<IFeedItem<any>[]>([]);
   const itemsHeights = useRef<number[]>([]);
@@ -36,11 +43,16 @@ export default function Feed(props: PropsWithClassName){
   const [hasNextPage, setHasNextPage] = useState(true);
   const [error, setError] = useState<any>(null);
   const listRef = useRef<any>(null);
-  let loaderRef = useRef<any>(null)
+  let loaderRef = useRef<any>(null);
 
-  const isItemLoaded = (index: number) => feedItems.length > index
+  const isItemLoaded = (index: number) => feedItems.length > index;
 
-  const loadNextPage = async (startIndex: number) => {
+  useEffect(() => {
+    setItems([]);
+    itemsHeights.current = [];
+  }, [props.settings])
+
+  const loadNextPage = async () => {
     if (isLoading) {
       return;
     }
@@ -52,7 +64,7 @@ export default function Feed(props: PropsWithClassName){
       page.keyset = feedItems[feedItems.length-1].id
     }
     try{
-      const response = await getFeed(page);
+      const response = await getFeed(props.settings??{}, page);
       setIsLoading(false);
       setItems([...feedItems, ...response.results]);
     } catch (error) {

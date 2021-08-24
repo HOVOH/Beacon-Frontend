@@ -2,7 +2,7 @@ import { Tweet } from "../../../components/twitter/Tweet";
 import React, { useState } from "react";
 import { Box, Button, makeStyles, Typography } from "@material-ui/core";
 import { useQuery, useQueryClient } from "react-query";
-import { addTopics, getTweets } from "../../../api/twitter/tweets.api";
+import { addTopics, deleteTweets, getTweets } from "../../../api/twitter/tweets.api";
 import { Checkbox } from "../../../components/inputs/Checkbox";
 import { useForm } from "react-hook-form";
 import { Skeleton } from "@material-ui/lab";
@@ -88,11 +88,18 @@ export default function CurateTweet(){
     }
   }
 
-  const submitTopics = handleSubmit((data: TopicsForm)=> {
+  const submitTopics = handleSubmit(async (data: TopicsForm)=> {
     if (tweet){
-      addTopics(tweet.tweetId, topics.filter(topic=> data[topic]));
+      await addTopics(tweet.tweetId, topics.filter(topic=> data[topic]));
     }
   })
+
+  const handleAuthorPurge = async () => {
+    if (tweet?.authorId){
+      await deleteTweets({authorTids: [tweet.authorId], includeTagged: true});
+      nextTweet();
+    }
+  }
 
   return (
     <Box>
@@ -108,6 +115,16 @@ export default function CurateTweet(){
                 :
                isFetching ? (<Skeleton width={450} variant={"rect"} />) : ("No tweets to curate")
             }
+            <Box mt={1}>
+              <Button
+                variant={"outlined"}
+                color={"primary"}
+                disabled={!tweet}
+                onClick={handleAuthorPurge}
+              >
+                Purge author's tweets
+              </Button>
+            </Box>
           </Box>
           <Box p={2}>
             <Box>
