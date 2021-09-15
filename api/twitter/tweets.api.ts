@@ -1,6 +1,7 @@
 import { client } from "../httpClient";
 import { KeysetPage } from "../Pagination";
 import { ITweet } from "./ITweet";
+import { AxiosResponse } from "axios";
 
 export interface ITweetsFilter {
   tags?: string[],
@@ -23,7 +24,7 @@ export async function getTweets({ tags, ...filter }: ITweetsFilter): Promise<Key
 
 export async function addTopics(tweetId: string, topics: string[]){
   const response = await client.put(`v1/twitter/tweets/${tweetId}/meta/topics`,{topics});
-
+  return response as AxiosResponse<ITweet>;
 }
 
 export interface IDeleteTweetsFilter {

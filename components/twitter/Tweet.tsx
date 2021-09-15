@@ -8,6 +8,7 @@ import { useQuery } from "react-query";
 import { getTwitterUser } from "../../api/twitter/twitter-user.api";
 import { ITwitterUser } from "../../api/twitter/ITwitterUser";
 import { Muted } from "../typography/Muted";
+import { Hint } from "../typography/Hint";
 
 const useStyle = makeStyles((theme)=> ({
   cardHeader:{
@@ -47,6 +48,9 @@ export function Tweet(props: ITweetProps){
       </Box>
       <Box className={classes.cardContent}>
         <Typography component="p">{props.tweet.text}</Typography>
+      </Box>
+      <Box mx={1}>
+        <Hint>Debug info: tid: {author?.userId}, tweetId: {tweet?.tweetId}</Hint>
       </Box>
     </Card>
   );

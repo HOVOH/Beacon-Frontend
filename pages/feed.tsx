@@ -50,7 +50,10 @@ export default function FeedPage(props:any) {
       <Box display={"flex"} alignItems={"center"} justifyContent={"space-between"}>
         <Title>Feed</Title>
         <Box>
-          <Button endIcon={<FilterListIcon/>} onClick={toggleFilter}>filter</Button>
+          <Button
+            variant={"outlined"} color={"primary"}
+            endIcon={<FilterListIcon/>}
+            onClick={toggleFilter}>filter</Button>
         </Box>
       </Box>
       {filterOpen && (
@@ -58,7 +61,9 @@ export default function FeedPage(props:any) {
           <Subtitle>Filter</Subtitle>
           <Checkbox name={"tweets"} control={control} label={"Tweets"}/>
           <Checkbox name={"twitterFollow"} control={control} label={"Follows"}/>
-          <Button onClick={handleFilterUpdate}>Apply</Button>
+          <Button onClick={handleFilterUpdate}
+                  variant={"contained"}
+                  color={"secondary"}>Apply</Button>
         </Box>
       )}
       <Feed settings={settings}/>

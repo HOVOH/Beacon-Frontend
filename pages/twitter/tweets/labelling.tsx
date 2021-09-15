@@ -7,6 +7,8 @@ import { Checkbox } from "../../../components/inputs/Checkbox";
 import { useForm } from "react-hook-form";
 import { Skeleton } from "@material-ui/lab";
 import { Title } from "../../../components/typography/Title";
+import TweetLabeling from "../../../components/twitter/TweetLabeling";
+import { ITweet } from "../../../api/twitter/ITweet";
 
 const topics = [
   "crypto",
@@ -76,23 +78,19 @@ export default function CurateTweet(){
     }
   }, [keyset, data, queryClient])
 
-  const submit = async () => {
-    await submitTopics();
+  const submit = async (tweet: ITweet|null, topics: string[]) => {
+    if (tweet) {
+      await addTopics(tweet.tweetId, topics);
+    }
     nextTweet();
+    return true;
   }
 
   const nextTweet = () => {
     if (data){
       setKeyset(data.page.lastToken);
-      reset(topics.reduce((obj, val)=>({...obj, [val]:false}), {}))
     }
   }
-
-  const submitTopics = handleSubmit(async (data: TopicsForm)=> {
-    if (tweet){
-      await addTopics(tweet.tweetId, topics.filter(topic=> data[topic]));
-    }
-  })
 
   const handleAuthorPurge = async () => {
     if (tweet?.authorId){
@@ -127,32 +125,10 @@ export default function CurateTweet(){
             </Box>
           </Box>
           <Box p={2}>
-            <Box>
-              <Typography variant={"h4"}>Select topics</Typography>
-              <Box display={"flex"} flexDirection={"column"}>
-                {topics.map(topic => (
-                  <Checkbox
-                    key={topic}
-                    control={control}
-                    name={topic}
-                    label={topic}
-                  />
-                ))}
-              </Box>
-              <Box display={"flex"}>
-                <Button
-                  variant={"contained"}
-                  color={"secondary"}
-                  onClick={submit}
-                  disabled={isFetching}
-                >Submit</Button>
-                <Box ml={1}></Box>
-                <Button variant={"outlined"} color={"primary"} onClick={nextTweet} disabled={isFetching}>Skip</Button>
-              </Box>
-            </Box>
+            <TweetLabeling isLoading={isFetching || !tweet} onSubmit={(topics) => submit(tweet, topics)}/>
           </Box>
         </Box>
       </Box>
     </Box>
-    );
+  );
 }

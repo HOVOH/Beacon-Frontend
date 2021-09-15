@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "cross-env NEXT_PUBLIC_BEACON_API_URL=http://localhost:8000/api next dev -p 2999",
     "build": "next build",
-    "start": "next start -p 2999"
+    "start": "cross-env NEXT_PUBLIC_BEACON_API_URL=http://localhost:8000/api next start -p 2999"
   },
   "dependencies": {
     "@ethersproject/providers": "^5.1.2",
