@@ -16,6 +16,7 @@
     "@web3-react/injected-connector": "^6.0.7",
     "axios": "^0.21.1",
     "cookies": "^0.8.0",
+    "cross-env": "^7.0.3",
     "deepmerge": "^4.2.2",
     "ethers": "^5.1.4",
     "luxon": "^1.27.0",
@@ -35,7 +36,6 @@
     "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/react-window": "^1.8.3",
     "@types/react-window-infinite-loader": "^1.0.3",
-    "cross-env": "^7.0.3",
     "typescript": "^4.3.2"
   }
 }
