@@ -92,8 +92,7 @@ export default function TweetLabeling(props: ITweetLabelingProps){
                 disabled={isLoading}
               >No topics</Button>
             </Box>
-            <Hint>Click submit without checking any boxes if the tweet is unrelated to any listed topic</Hint>
-          </Box>
+            </Box>
         </Box>
       </Box>
     </Box>

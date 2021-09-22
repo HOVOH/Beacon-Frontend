@@ -62,7 +62,7 @@ export function TweetFeedItem(props: ITweetFeedItemProps){
   const [labelingIsConfirmed, setConfirmed] = useState(false)
   const [labelPopupOpen, openPopup, closePopup] = popup(false);
 
-  const confirmLabelsAreOk =  (tweet: ITweet) => addTopics(tweet.tweetId, tweet.meta.labels)
+  const confirmLabelsAreOk =  (tweet: ITweet) => submitLabels(tweet, tweet.meta.labels)
 
   const submitLabels = async (tweet: ITweet, topics: string[]) => {
     const response = await addTopics(tweet.tweetId, topics);
