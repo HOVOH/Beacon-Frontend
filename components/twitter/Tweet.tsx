@@ -9,8 +9,20 @@ import { getTwitterUser } from "../../api/twitter/twitter-user.api";
 import { ITwitterUser } from "../../api/twitter/ITwitterUser";
 import { Muted } from "../typography/Muted";
 import { Hint } from "../typography/Hint";
+import { OutsideLink } from "../navigation/OutsideLink";
+import { getProfileLink, getTweetLink } from "./twitterHelper";
+import { If } from "../utils/If";
 
 const useStyle = makeStyles((theme)=> ({
+  card: {
+    transition: `background-color ${theme.transitions.easing.easeOut} 0.1s`,
+    "&:hover": {
+      backgroundColor: theme.palette.action.hover,
+    }
+  },
+  cardLink: {
+    display: "block"
+  },
   cardHeader:{
     padding: theme.spacing(2)
   },
@@ -38,20 +50,32 @@ export function Tweet(props: ITweetProps){
     { retry: false, staleTime: 60000});
 
   return (
-    <Card className={classBag(className)} style={style}>
-      <Box className={classes.cardHeader}>
-        <Typography variant={"h6"}>
-          {(author?.name) ?? tweet.authorId ?? "Author unknown"}
-          <Muted className={classes.username}>@{author?.username}</Muted>
-        </Typography>
-        <Typography color={"textSecondary"} variant={"subtitle1"}>{DateTime.fromISO(tweet.createdAt).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)}</Typography>
-      </Box>
-      <Box className={classes.cardContent}>
-        <Typography component="p">{props.tweet.text}</Typography>
-      </Box>
-      <Box mx={1}>
-        <Hint>Debug info: tid: {author?.userId}, tweetId: {tweet?.tweetId}</Hint>
-      </Box>
-    </Card>
+    <If<string>  isTruthy={author?.username} wrapWith={(children, username) => (
+      <a className={classes.cardLink}
+         href={getTweetLink(username, tweet.tweetId)}
+         target={"_blank"}
+         rel="nofollow noopener"
+      >{children}</a>
+    )}>
+      <Card className={classBag(classes.card, className)} style={style}>
+        <Box className={classes.cardHeader}>
+          <If<string> isTruthy={author?.username} wrapWith={(children, username) => (
+            <OutsideLink href={getProfileLink(username)} color={"light"}>{children}</OutsideLink>
+          )}>
+            <Typography variant={"h6"}>
+              {(author?.name) ?? tweet.authorId ?? "Author unknown"}
+              <Muted className={classes.username}>@{author?.username}</Muted>
+            </Typography>
+          </If>
+          <Typography color={"textSecondary"} variant={"subtitle1"}>{DateTime.fromISO(tweet.createdAt).toLocaleString(DateTime.DATETIME_SHORT_WITH_SECONDS)}</Typography>
+        </Box>
+        <Box className={classes.cardContent}>
+          <Typography component="p">{props.tweet.text}</Typography>
+        </Box>
+        <Box mx={1}>
+          <Hint>Debug info: tid: {author?.userId}, tweetId: {tweet?.tweetId}</Hint>
+        </Box>
+      </Card>
+    </If>
   );
 }

@@ -31,7 +31,7 @@ export const commonTheme: BeaconThemeOptions = {
   shadows,
   typography: {
     fontFamily: "Poppings, Roboto, Helvetica, Arial, sans-serif"
-  }
+  },
 }
 
 export const mergeBaseTheme = (theme: BeaconThemeOptions) => merge(commonTheme, theme);

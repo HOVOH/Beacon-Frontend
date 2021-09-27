@@ -9,7 +9,7 @@ export const darkTheme: BeaconThemeOptions = mergeBaseTheme({
     },
     text: {
       primary: "#FFFBEB",
-      secondary: "#FFE0A3"
+      secondary: "#FFE0A3",
     },
     primary: {
       main: "#F0905F",

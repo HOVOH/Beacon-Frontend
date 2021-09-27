@@ -88,6 +88,10 @@ export default function Feed(props: IFeedProps){
       }
     }, [ref]);
 
+    useEffect(() => {
+      loaderRef.current.current = listRef.current;
+    }, [listRef])
+
     if (!isItemLoaded(index)){
       return (
         <div style={style}>
@@ -108,10 +112,6 @@ export default function Feed(props: IFeedProps){
   if (error){
     return (<ErrorBox error={error} resource={"feed"}/>)
   }
-
-  useEffect(() => {
-    loaderRef.current.current = listRef.current;
-  }, [listRef])
 
   return (
     <Box className={classBag(classes.root, props.className)}>
