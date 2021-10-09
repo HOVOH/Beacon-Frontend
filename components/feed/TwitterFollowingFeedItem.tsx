@@ -74,11 +74,22 @@ export function TwitterFollowingFeedItem(props: ITwitterFollowingFeedItemProps){
                     Stopped following
                   </Typography>
                   <List>
-                    {stopped.map(user => (
-                      <ListItem key={user.username}>
-                        <OutsideLink href={"https://twitter.com/"+user.username} className={classes.userLink}>{user.name}<Muted className={classes.username}>@{user.username}</Muted></OutsideLink>
-                      </ListItem>
-                    ))}
+                    {stopped.map((user, i) => {
+                      if (user) {
+                        return (
+                          <ListItem key={user.username}>
+                            <OutsideLink href={"https://twitter.com/" + user.username}
+                                         className={classes.userLink}>{user.name}<Muted
+                              className={classes.username}>@{user.username}</Muted></OutsideLink>
+                          </ListItem>
+                        );
+                      }
+                      return (
+                        <ListItem key={i}>
+                          Unknown
+                        </ListItem>
+                      )
+                    })}
                   </List>
                 </Box>
               )}
