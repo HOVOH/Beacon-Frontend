@@ -6,7 +6,6 @@ import React from "react";
 import { Title } from "../../../components/typography/Title";
 import { Subtitle } from "../../../components/typography/Subtitle";
 import { BeaconTheme } from "../../../theme/common";
-import { NotFound } from "../../../components/errors/NotFound";
 import { ErrorBox } from "../../../components/errors/ErrorBox";
 
 const useStyle = makeStyles((theme: BeaconTheme) => ({

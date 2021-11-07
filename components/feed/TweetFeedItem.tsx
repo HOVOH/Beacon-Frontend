@@ -4,7 +4,7 @@ import { classBag, PropsWithClassName } from "../../utils/classBag";
 import { IFeedItem } from "../../api/feed";
 import { ITweet } from "../../api/twitter/ITweet";
 import { ITwitterUser } from "../../api/twitter/ITwitterUser";
-import { Tweet } from "../twitter/Tweet";
+import { ISimpleTweet, Tweet } from "../twitter/Tweet";
 import { Box, Button, Dialog, makeStyles, Typography } from "@material-ui/core";
 import { BeaconTheme } from "../../theme/common";
 import { Hint } from "../typography/Hint";
@@ -51,28 +51,14 @@ const useStyle = makeStyles((theme: BeaconTheme) => ({
 }))
 
 export interface ITweetFeedItemProps extends PropsWithClassName {
-  event: IFeedItem<{ tweet: ITweet, author: ITwitterUser }>,
+  event: IFeedItem<ISimpleTweet>,
   ref?: any,
 }
 
 export function TweetFeedItem(props: ITweetFeedItemProps){
-  const {event, ref} = props;
-  const {tweet, author} = event.data;
+  const {event} = props;
+  const tweet = event.data;
   const classes = useStyle();
-  const [labelingIsConfirmed, setConfirmed] = useState(false)
-  const [labelPopupOpen, openPopup, closePopup] = popup(false);
-
-  const confirmLabelsAreOk =  (tweet: ITweet) => submitLabels(tweet, tweet.meta.labels)
-
-  const submitLabels = async (tweet: ITweet, topics: string[]) => {
-    const response = await addTopics(tweet.tweetId, topics);
-    const success = response.status === 200;
-    if (success){
-      setConfirmed(true);
-    }
-    closePopup()
-    return success;
-  }
 
   return (
     <Box className={classBag(classes.root, props.className)} style={props.style}>
@@ -80,51 +66,20 @@ export function TweetFeedItem(props: ITweetFeedItemProps){
         <Box mx={2} my={1}>
           <Typography variant={"h5"}>Twitter - {mapReferences(tweet)}</Typography>
         </Box>
-        <Tweet tweet={tweet} author={author}/>
-        <Box mx={1} my={1} display={"flex"} alignItems={"center"}>
-          <Typography color={"textSecondary"} className={classes.smallMargin}>Labels </Typography>
-          {topics.map(topic => (
-            <Box className={tweet.meta.labels.includes(topic)?classes.activeTopic: classes.topic} key={topic}>
-              <Typography variant={"body2"} display={"inline"}
-                          className={classes.topicKey}>
-                {topic}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
-        {!labelingIsConfirmed && (
-          <Box mx={1} mb={1} display={"flex"} alignItems={"center"}>
-            <Typography className={classes.smallMargin}>Is this labeling correct?</Typography>
-            <Button size={"small"} variant={"outlined"} className={classes.smallMargin}
-              onClick={() => confirmLabelsAreOk(tweet)}
-            >Yes</Button>
-            <Button size={"small"} variant={"contained"}
-                    onClick={() => openPopup()}>No</Button>
-          </Box>
-        )}
+        <Tweet tweet={tweet}/>
       </Box>
-      <Dialog open={labelPopupOpen} onClose={closePopup}>
-        <Box display={"flex"} m={2} alignItems={"center"}>
-          <Box>
-            <Typography variant={"h4"}>Correct topics for the following tweet</Typography>
-            <Tweet tweet={tweet} author={author}/>
-          </Box>
-          <TweetLabeling onSubmit={(topics) => submitLabels(tweet, topics)} checkedTopics={tweet.meta.labels}/>
-        </Box>
-      </Dialog>
     </Box>
   )
 }
 
-const mapReferences = (tweet: ITweet): string => {
+const mapReferences = (tweet: ISimpleTweet): string => {
   const map = {
     replied_to: "Reply",
     retweeted: "Retweet",
     quoted: "Quote"
   }
-  if (tweet?.meta?.references?.length > 0){
-    // @ts-ignore
-    return map[tweet.meta.references[0].type];
+  if (tweet.references?.length > 0){
+    return map[tweet.references[0].type];
   }
   return "Tweet"
 }
