@@ -27,5 +27,5 @@ jobs:
           tags: "ghcr.io/hovoh/beacon-frontend:latest"
           push: true
           build-args: |
-            API_URL=https://beacon.hovoh.me/api
+            API_URL=https://beacon.vision/api
 
